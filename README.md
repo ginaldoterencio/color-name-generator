@@ -1,10 +1,7 @@
-color-name-generator
+Color name generator
 ====================
 
 Generate color name according with the base color name and group
-
-# Color name generator
-
 
 ## Getting Started
 
