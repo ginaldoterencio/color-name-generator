@@ -1,6 +1,6 @@
 {
   "name": "color-name-generator",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "Generate color name according with the base color name and group",
   "main": "generate-color-name.js",
   "scripts": {
