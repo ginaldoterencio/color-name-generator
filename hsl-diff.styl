@@ -1,0 +1,8 @@
+
+hsl-diff(base, h, s, l) {
+  bh = hue(base);
+  bs = saturation(base);
+  bl = lightness(base);
+
+  return hsla(bh + h, bs + s, bl + l, 1);
+}

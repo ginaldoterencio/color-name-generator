@@ -6,8 +6,8 @@ Generate color name according with the base color name and group
 ## Getting Started
 
 - Install: `npm install -g color-name-generator`
-- Run: `generate-color-name -c #ff0000 -b #cc0000 -g main`
-- Will generate `$main-group-lighter-83-color: hsl-diff($main-color, 0.00, 0.00, 10.00); //#ff0000`
+- Run: `generate-color-name -c '#ff0000' -b '#cc0000' -g 'main'`
+- Will generate `$theme[main-lighter-50] = hsl-diff($theme.main, 0.00deg, 0.00%, 10.00%); //#ff0000`
 
 
 ## Options

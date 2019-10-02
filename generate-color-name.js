@@ -7,14 +7,15 @@ var tinycolor = require('tinycolor2'),
 program
     .version('0.1.2')
     .usage('[options] <file ...>')
-    .option('-c, --color [hexadecimal]', 'Color')
-    .option('-b, --baseColor [hexadecimal]', 'Base color')
-    .option('-g, --groupColorName [string]', 'Group color name')
-    .parse(process.argv);
+    .option('-c, --color <type>', 'Color')
+    .option('-b, --base-color <type>', 'Base color')
+    .option('-g, --group <type>', 'Group')
+
+program.parse(process.argv);
 
 var hexPattern = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i,
-    isParamsValid = true;
-
+		isParamsValid = true;
+		
 if((typeof program.color !== 'string') || !(hexPattern.test(program.color))) {
   console.log(chalk.red('Please, type a valid color.'));
   isParamsValid = false;
@@ -25,7 +26,7 @@ if((typeof program.baseColor !== 'string') || !(hexPattern.test(program.baseColo
   isParamsValid = false;
 }
 
-if((typeof program.groupColorName !== 'string') || (program.groupColorName.trim() === '')) {
+if((typeof program.group !== 'string') || (program.group.trim() === '')) {
   console.log(chalk.red('Type a group color name'));
   isParamsValid = false;
 }
@@ -37,20 +38,20 @@ if(!isParamsValid) {
 var baseColor = tinycolor(program.baseColor).toHsl();
 var color = tinycolor(program.color).toHsl();
 var lig = (color.l > baseColor.l) ? 'lighter' : 'darker';
-var intense = (color.l > baseColor.l) ? ((100 * color.l) / (1 - baseColor.l)) : ((100 * color.l) / (baseColor.l));
+var intense = parseInt(color.l * 100, 10);
 var diff = {
 	h: (color.h - baseColor.h).toFixed(2),
 	s: ((color.s - baseColor.s) * 100).toFixed(2),
 	l: ((color.l - baseColor.l) * 100).toFixed(2)
 };
 
-console.log(chalk.green('$%s-group-%s-%s-color: ' + 
-			chalk.blue('hsl-diff($%s-color, %s, %s, %s);'+ 
+console.log(chalk.green('$theme[%s-%s-%s] = ' + 
+			chalk.blue('hsl-diff($theme.%s, %sdeg, %s\%, %s\%);'+ 
 			chalk.gray(' //%s'))),
-			program.groupColorName,
+			program.group,
 			lig,
-			parseInt(intense, 10),
-			program.groupColorName,
+			intense,
+			program.group,
 			diff.h,
 			diff.s,
 			diff.l,
